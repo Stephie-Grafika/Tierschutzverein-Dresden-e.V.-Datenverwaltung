@@ -1,0 +1,47 @@
+/* colors as var */
+
+:root{
+	--tsv_darkblue: 5, 88, 133;
+	--tsv_lightblue: 36, 174, 229;
+	--tsv_blue: 27, 147, 210;
+	--tsv_darkgrey: 102, 103, 102;
+	--tsv_lightgrey: 178, 178, 178;
+}
+
+
+/* colors as class*/
+
+.tsv_darkblue{
+	color: RGB(var(--tsv_darkblue));
+}
+.tsv_bg_darkblue{
+	background-color: RGB(var(--tsv_darkblue));
+}
+
+.tsv_lightblue{
+	color: RGB(var(--tsv_lightblue));
+}
+.tsv_bg_lightblue{
+	background-color: RGB(var(--tsv_lightblue));
+}
+
+.tsv_blue{
+	color: RGB(var(--tsv_blue));
+}
+.tsv_bg_blue{
+	background-color: RGB(var(--tsv_blue));
+}
+
+.tsv_darkgrey{
+	color: RGB(var(--tsv_darkgrey));
+}
+.tsv_bg_darkgrey{
+	background-color: RGB(var(--tsv_darkgrey));
+}
+
+.tsv_lightgrey{
+	color: RGB(var(--tsv_lightgrey));
+}
+.tsv_bg_lightgrey{
+	background-color: RGB(var(--tsv_lightgrey));
+}
