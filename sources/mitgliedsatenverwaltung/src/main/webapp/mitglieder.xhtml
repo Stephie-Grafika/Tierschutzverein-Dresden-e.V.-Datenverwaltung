@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>TSV Mitgliedsverwaltung</title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/color.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/fonts.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/styles.css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon/Tierschutzverein-Dresden-Favicon.png"/>
+	<!-- Indexierung verhindern -->
+	<meta name="robots" content="noindex"/>
+</h:head>
+<h:body>
+	<!-- Header & Logo -->
+	<header>
+		<img src="assets/img/TSV-Logo.png" id="logo"/>
+		<nav class="navbar">
+			<ul class="nav">
+              	<li><a href="mitglieder.xhtml">Mitgliedsverwaltung</a></li>
+               <li><a href="#">Spendenbescheinigungen</a></li>
+               <li><a href="#">Sponsorunternehmen</a></li>
+           </ul>
+        </nav>  
+		<br/><hr/><br/><br/>
+	</header>
+	<h:form>
+		<h1>Mitgliedsverwaltung</h1>
+		<p:dataTable id="table" var="emission" value="#{emissionTabelle.liste}" emptyMessage="Kein Land unter dieser Suche gefunden." size="small" stickyHeader="true" stickyTopAt=".layout-topbar">
+			<p:column headerText="ID" sortBy="#{emission.ID}">
+				<p:outputLabel value="#{emission.ID}" id="IDInput"></p:outputLabel>
+			</p:column>
+			<p:column headerText="Land" sortBy="#{emission.land}" filterBy="#{emission.land}" filterPlaceholder="Suchen">
+				<p:inputText value="#{emission.land}" id="landInput" required="true" requiredMessage="Landname ist erforderlich">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß(),.;:'-–&amp; ]+"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Landcode" sortBy="#{emission.landCode}">
+				<p:inputText value="#{emission.landCode}" id="landCode" label="Landcode" validatorMessage="Landcode darf nur aus 3 Buchstaben bestehen">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß ]+"/>
+					<f:validateLength minimum="3" maximum="3"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 1990" sortBy="#{emission.emission1990}">
+				<p:inputText value="#{emission.emission1990}" id="emission1990Input" label="Emission 1990" validatorMessage="Emmission 1990 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 2000" sortBy="#{emission.emission2000}">
+				<p:inputText value="#{emission.emission2000}" id="emission2000Input" label="Emission 2000" validatorMessage="Emmission 2000 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 2010" sortBy="#{emission.emission2010}">
+				<p:inputText value="#{emission.emission2010}" id="emission2010Input" label="Emission 2010" validatorMessage="Emmission 2010 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 2020" sortBy="#{emission.emission2020}">
+				<p:inputText value="#{emission.emission2020}" id="emission2020Input" label="Emission 2020" validatorMessage="Emmission 2020 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 2030" sortBy="#{emission.emission2030}">
+				<p:inputText value="#{emission.emission2030}" id="emission2030Input" label="Emission 2030" validatorMessage="Emmission 2030 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="CO2-Emissions (kt) 2040" sortBy="#{emission.emission2040}">
+				<p:inputText value="#{emission.emission2040}" id="emission2040Input" label="Emission 2040" validatorMessage="Emmission 2040 darf nicht negativ sein">
+					<f:validateDoubleRange minimum="0.00"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="">
+           		<p:commandLink value="&#10008; Löschen" action="#{emissionTabelleController.deleteEmission(emission)}" update="table" />
+        	</p:column>
+		</p:dataTable>
+		<div class="positionierter-button">
+			<p:messages id="messages">
+				<p:autoUpdate />
+			</p:messages>
+			<p:commandButton value="speichern" icon="pi pi-check" action="#{emissionTabelleController.stopEdit}" />
+			<p:commandButton value="Neues Land hinzufügen" icon="pi pi-plus" action="#{emissionTabelleController.addEmission}" update="table" />
+		</div>
+	</h:form>
+	<footer>
+	<br/><br/><hr/><br/>
+		<ul>
+          	<li>© Stephanie Ott (4237273) 2025</li>
+		</ul>
+	</footer>
+</h:body>
+</html>
