@@ -11,7 +11,7 @@ public class MitgliedsBeitrag implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mitgliedsBeitragsID;
 
-    private double jahresbeitrag;
+    private double jahresBeitrag;
 
     @Enumerated(EnumType.STRING)
     private Zahlart zahlArt;
@@ -22,8 +22,8 @@ public class MitgliedsBeitrag implements Serializable {
         // Standard-Konstruktor für JPA
     }
 
-    public MitgliedsBeitrag(double jahresbeitrag, Zahlart zahlArt, LocalDate letzteBeitragsZahlung) {
-        this.jahresbeitrag = jahresbeitrag;
+    public MitgliedsBeitrag(double jahresBeitrag, Zahlart zahlArt, LocalDate letzteBeitragsZahlung) {
+        this.jahresBeitrag = jahresBeitrag;
         this.zahlArt = zahlArt;
         this.letzteBeitragsZahlung = letzteBeitragsZahlung;
     }
@@ -39,11 +39,11 @@ public class MitgliedsBeitrag implements Serializable {
     }
 
     public double getJahresbeitrag() {
-        return jahresbeitrag;
+        return jahresBeitrag;
     }
 
-    public void setJahresbeitrag(double jahresbeitrag) {
-        this.jahresbeitrag = jahresbeitrag;
+    public void setJahresbeitrag(double jahresBeitrag) {
+        this.jahresBeitrag = jahresBeitrag;
     }
 
     public Zahlart getZahlArt() {
