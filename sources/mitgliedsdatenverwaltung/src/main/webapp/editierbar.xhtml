@@ -1,0 +1,183 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <!-- Präfix für Elemente / Framework: JFS - h & f, Primeface - p -->
+<h:head>
+	<title>TSV Mitgliedsverwaltung</title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/color.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/fonts.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/styles.css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon/Tierschutzverein-Dresden-Favicon.png"/>
+	<!-- Indexierung verhindern -->
+	<meta name="robots" content="noindex"/>
+</h:head>
+<h:body>
+	<!-- Header & Logo -->
+	<header>
+		<img src="assets/img/TSV-Logo.png" id="logo"/>
+		<nav class="navbar">
+			<ul class="nav">
+				<li><a href="mitglieder.xhtml">Mitgliedsverwaltung</a></li>
+				<li><a href="#">Spendenbescheinigungen</a></li>
+				<li><a href="#">Sponsorunternehmen</a></li>
+           </ul>
+        </nav>  
+		<br/><hr/><br/><br/>
+	</header>
+	<h:outputScript name="locales/locale-de.js" library="primefaces" />
+	<script>
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+    }
+
+    //]]>
+</script>
+	<h:form id="form">
+		<!--<div>
+	      <p:commandButton value="XLSX" styleClass="mr-2 mb-2" >
+	          <p:dataExporter type="xlsxstream" target="mitglieder" fileName="visible" visibleOnly="true"/>
+	      </p:commandButton>
+	
+	      <p:commandButton value="PDF" styleClass="mr-2 mb-2" >
+	          <p:dataExporter type="pdf" target="mitglieder" fileName="visible" visibleOnly="true"/>
+	      </p:commandButton>
+	   </div>-->
+	
+	<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" emptyMessage="Kein Mitglied unter dieser Suche gefunden." size="small" stickyHeader="true">
+			
+			<!--<f:facet name="header">
+	            <div class="flex justify-content-between align-items-center">
+	                Mitgliederliste
+	                <div>
+	                    <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
+	                    <p:columnToggler datasource="mitglieder" trigger="toggler">
+	                        <p:ajax event="toggle" listener="#{mitgliedsListe.onToggle}"/>
+	                    </p:columnToggler>
+	                </div>
+	            </div>
+	        </f:facet>-->
+			
+			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}">
+				<p:outputLabel value="#{mitglied.mitgliedsID}" id="mitgliedsIDInput"></p:outputLabel>
+			</p:column>
+			<p:column headerText="Titel" sortBy="#{mitglied.titel}">
+				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" validatorMessage="Titel: nur Buchstaben erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+					<f:validateLength maximum="10"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Name" sortBy="#{mitglied.name}">
+				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="true" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+				<p:message for="nameInput"/>
+			</p:column>
+			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}">
+				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" required="true" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Geburtsdatum" sortBy="#{mitglied.geburtsdatum}">
+				<p:datePicker id="geburtsdatumInput" value="#{mitglied.geburtsdatum}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Geburtsdatum"/>
+			</p:column>
+			<p:column headerText="Jahres-Beitrag" sortBy="#{mitglied.jahresBeitrag}">
+				<p:inputText value="#{mitglied.jahresBeitrag}" id="jahresBeitragInput" label="Jahresbeitrag" validatorMessage="Jahresbeitrag: max. 10 Ziffern">
+				<f:validateLength maximum="10"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Zahlart" sortBy="#{mitglied.zahlArt}">
+				<p:selectOneMenu id="zahlArtInput" value="#{mitglied.zahlArt}" label="Zahlart">
+                    <f:selectItem itemLabel="Zahlart" itemValue="UNDEFINIERT"/>
+                    <f:selectItem itemLabel="Abbuchung" itemValue="ABBUCHUNG"/>
+                	<f:selectItem itemLabel="Dauerauftrag" itemValue="DAUERAUFTRAG"/>
+                	<f:selectItem itemLabel="PayPal" itemValue="PAYPAL"/>
+                	<f:selectItem itemLabel="Überweisung" itemValue="UEBERWEISUNG"/>
+                	<f:selectItem itemLabel="keine Zahlung" itemValue="KEINEZAHLUNG"/>
+               	</p:selectOneMenu>
+			</p:column>
+			<p:column headerText="letzte Beitragszahlung" sortBy="#{mitglied.letzteBeitragsZahlung}">
+				<p:inputText value="#{mitglied.letzteBeitragsZahlung}" id="letzteBeitragsZahlungInput" label="letzte Beitragszahlung" validatorMessage="letzte Beitragszahlung: max. 4 Ziifern">				
+					<f:validateLength maximum="4"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="PLZ" sortBy="#{mitglied.plz}">
+				<p:inputText value="#{mitglied.plz}" id="plzInput" label="PLZ" validatorMessage="PLZ: max. 5 Ziffern">
+					<f:validateLength maximum="5"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Ort" sortBy="#{mitglied.ort}">
+				<p:inputText value="#{mitglied.ort}" id="ortInput" label="Ort" validatorMessage="Ort: max. 10 Buchstaben">
+					<f:validateLength maximum="35"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Straße" sortBy="#{mitglied.strasse}">
+				<p:inputText value="#{mitglied.strasse}" id="strasseInput" label="Straße" validatorMessage="Straße: max. 50 Zeichen">
+					<f:validateLength maximum="50"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Haus-Nr." sortBy="#{mitglied.hausNr}">
+				<p:inputText value="#{mitglied.hausNr}" id="hausNrInput" label="Haus-Nr." validatorMessage="Haus-Nr: max. 5 Zeichen">
+					<f:validateLength maximum="5"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Telefon" sortBy="#{mitglied.telefonNummer}">
+				<p:inputText value="#{mitglied.telefonNummer}" id="telefonNummerInput" label="Telefon" validatorMessage="Telefon: max. 15 Ziffern"> 
+					<f:validateRegex pattern="[1-90 ]+"/>
+					<f:validateLength maximum="15"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Mobil" sortBy="#{mitglied.mobilNummer}">
+				<p:inputText value="#{mitglied.mobilNummer}" id="mobilNummerInput" label="Mobil" validatorMessage="Mobil: max. 15 Ziifern">
+					<f:validateRegex pattern="[1-90 ]+"/>
+					<f:validateLength maximum="15"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="E-Mail" sortBy="#{mitglied.email}">
+				<p:inputText value="#{mitglied.email}" id="emailInput" label="E-Mail" validatorMessage="E-Mail: max. 100 Zeichen und - _ @ erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß1-90.-–_@ ]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Eintrittsdatum" sortBy="#{mitglied.datumEintritt}">
+				<p:datePicker id="datumEintrittInput" value="#{mitglied.datumEintritt}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Eintrittsdatum"/>
+			</p:column>
+			<p:column headerText="Status" sortBy="#{mitglied.mitgliedsStatus}">
+				<p:selectOneMenu id="mitgliedsStatusInput" value="#{mitglied.mitgliedsStatus}" label="Mitgliedsstatus">
+                    <f:selectItem itemLabel="Status" itemValue="UNBEKANNT"/>
+                    <f:selectItem itemLabel="aktiv" itemValue="AKTIV"/>
+                	<f:selectItem itemLabel="keine Zahlung" itemValue="KEINEZAHLUNG"/>
+                	<f:selectItem itemLabel="gestrichen" itemValue="GESTRICHEN"/>
+                	<f:selectItem itemLabel="gekündigt" itemValue="GEKUENDIGT"/>
+               	</p:selectOneMenu>
+			</p:column>
+			<p:column headerText="Kommentar" sortBy="#{mitglied.mkommentar}">
+				<p:inputText value="#{mitglied.kommentar}" id="kommentarInput" label="Kommentar" validatorMessage="Kommentar: max. 1000 Zeichen">
+					<f:validateLength maximum="1000"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="">
+           		<p:commandLink value="&#10008; Löschen" action="#{mitgliedsListeController.deleteMitglied(mitglied)}" update="table" />
+        	</p:column>
+		</p:dataTable>
+		<div class="positionierter-button">
+			<p:messages>
+				<p:autoUpdate/>
+			</p:messages>
+			<p:commandButton value="Speichern" icon="pi pi-check" action="#{mitgliedsListeController.stopEdit}" />
+			<p:commandButton value="Neues Mitglied" icon="pi pi-plus" action="#{mitgliedsListeController.addMitglied}" update="table" />
+		</div>
+	</h:form>
+	<footer>
+	<br/><br/><hr/><br/>
+		<ul>
+          	<li>© Stephanie Ott (4237273) 2025</li>
+		</ul>
+	</footer>
+</h:body>
+</html>
