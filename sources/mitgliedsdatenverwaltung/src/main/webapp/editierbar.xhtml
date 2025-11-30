@@ -67,20 +67,20 @@
 				<p:outputLabel value="#{mitglied.mitgliedsID}" id="mitgliedsIDInput"></p:outputLabel>
 			</p:column>
 			<p:column headerText="Titel" sortBy="#{mitglied.titel}">
-				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" validatorMessage="Titel: nur Buchstaben erlaubt">
-					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" validatorMessage="Titel: nur Buchstaben und Bindestrich erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="10"/>
 				</p:inputText>
 			</p:column>
-			<p:column headerText="Name" sortBy="#{mitglied.name}">
-				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="true" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben erlaubt">
-					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+			<p:column headerText="Name" sortBy="#{mitglied.name}" sortOrder="asc">
+				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="true" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben und Bindestrich erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}">
-				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" required="true" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben erlaubt">
-					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
+				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" required="true" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben und Bindestricherlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
 			</p:column>
@@ -140,8 +140,8 @@
 				</p:inputText>
 			</p:column>
 			<p:column headerText="E-Mail" sortBy="#{mitglied.email}">
-				<p:inputText value="#{mitglied.email}" id="emailInput" label="E-Mail" validatorMessage="E-Mail: max. 100 Zeichen und - _ @ erlaubt">
-					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß1-90.-–_@ ]+"/>
+				<p:inputText value="#{mitglied.email}" id="emailInput" label="E-Mail" validatorMessage="E-Mail: max. 100 Zeichen und - – _ @ erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß1-90._@ \- \–]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
 			</p:column>
