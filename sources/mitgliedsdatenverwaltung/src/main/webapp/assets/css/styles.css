@@ -20,7 +20,7 @@ header {
 
 .nav{
 	display: flex;
-	align-items: center; /* Vertikale Zentrierung */
+	align-items: center;
 	justify-content: center;
 }
 
@@ -94,8 +94,8 @@ footer ul li {
     background-color: RGB(var(--tsv_darkblue)) !important;
     color: white !important; 
     border: none !important;
-    display: block !important;
     margin: 1em auto !important;
+    
 }
 
 .ui-button:hover {
@@ -104,12 +104,17 @@ footer ul li {
     border: none !important; 
 }
 
+.positionierter-button .ui-button {
+    display: block !important;
+}
+
 .positionierter-button{
 	position: fixed;
     bottom: 1em;
     right: 1em;
     z-index: 1000; /* Über anderen Elementen */
 }
+
 
 /* Tabelle & Input */
 
@@ -126,11 +131,11 @@ table th{
 	color: white!important;
 }
 
-th, td input, td textarea, td select{
+th, td, td input, td textarea, td select{
 	width: 150px!important;	
 }
 
-th:first-child{
+th:first-child, td:first-child{
 	width: 80px!important;	
 }
 

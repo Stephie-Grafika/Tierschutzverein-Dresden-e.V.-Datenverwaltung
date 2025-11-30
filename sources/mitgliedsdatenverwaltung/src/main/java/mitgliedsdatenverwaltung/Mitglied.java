@@ -3,10 +3,7 @@ package mitgliedsdatenverwaltung;
 import jakarta.persistence.*;
 import java.io.Serializable;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import mitgliedsdatenverwaltung.MitgliedsStatus;
 
 @Entity
 public class Mitglied implements Serializable {
@@ -16,6 +13,7 @@ public class Mitglied implements Serializable {
     private String titel;
     private String name;
     private String vorname;
+    @Temporal(TemporalType.DATE)
     private Date geburtsdatum;
     private String jahresBeitrag;
     //private String zahlArt;
@@ -29,6 +27,7 @@ public class Mitglied implements Serializable {
     private String telefonNummer;
     private String mobilNummer;
     private String email;
+    @Temporal(TemporalType.DATE)
     private Date datumEintritt;
     //private String mitgliedsStatus;
     @Enumerated(EnumType.STRING)

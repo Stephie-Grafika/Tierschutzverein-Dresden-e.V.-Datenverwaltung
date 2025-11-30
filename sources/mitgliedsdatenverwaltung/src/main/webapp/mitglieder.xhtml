@@ -26,47 +26,23 @@
 				<li><a href="#">Sponsorunternehmen</a></li>
            </ul>
         </nav>  
-		<br/><hr/><br/><br/>
+		<br/><hr/>
 	</header>
 	<h:outputScript name="locales/locale-de.js" library="primefaces" />
-	<script>
-    //<![CDATA[
-    function dateTemplateFunc(date) {
-        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
-    }
-
-    //]]>
-</script>
 	<h:form id="form">
-		<!--<div>
-	      <p:commandButton value="XLSX" styleClass="mr-2 mb-2" >
-	          <p:dataExporter type="xlsxstream" target="mitglieder" fileName="visible" visibleOnly="true"/>
-	      </p:commandButton>
-	
-	      <p:commandButton value="PDF" styleClass="mr-2 mb-2" >
-	          <p:dataExporter type="pdf" target="mitglieder" fileName="visible" visibleOnly="true"/>
-	      </p:commandButton>
-	   </div>-->
-	
-	<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" scrollable="true">
-			
-			<!--<f:facet name="header">
-	            <div class="flex justify-content-between align-items-center">
-	                Mitgliederliste
-	                <div>
-	                    <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
-	                    <p:columnToggler datasource="mitglieder" trigger="toggler">
-	                        <p:ajax event="toggle" listener="#{mitgliedsListe.onToggle}"/>
-	                    </p:columnToggler>
-	                </div>
-	            </div>
-	        </f:facet>-->
-			
-			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}">
+		<div class="table-header-buttons">
+		</div>
+		<p:dataTable id="table" widgetVar="mitgliederTable" var="mitglied" value="#{mitgliedsListe.liste}" scrollable="true" scrollHeight="500">			
+			<f:facet name="header">
+				<div class="flex justify-content-between align-items-center">
+					<p:commandButton id="toggler" type="button" value="Spalten" icon="pi pi-align-justify" title="Spalten ein-/ausblenden" />
+					<p:columnToggler datasource="form:table" trigger="toggler" />
+				</div>
+			</f:facet>
+			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}" sortOrder="desc">
 				<p:outputLabel value="#{mitglied.mitgliedsID}"></p:outputLabel>
 			</p:column>
-			<p:column headerText="Titel" sortBy="#{mitglied.titel}">
+			<p:column headerText="Titel" visible="false" sortBy="#{mitglied.titel}">
 				<p:outputLabel value="#{mitglied.titel}">
 				</p:outputLabel>
 			</p:column>
@@ -78,7 +54,7 @@
 				<p:outputLabel value="#{mitglied.vorname}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Geburtsdatum" sortBy="#{mitglied.geburtsdatum}">
+			<p:column headerText="Geburtsdatum" visible="false" sortBy="#{mitglied.geburtsdatum}">
 				<p:outputLabel value="#{mitglied.geburtsdatum}">
 					<f:convertDateTime pattern="dd.MM.yyyy" />
 				</p:outputLabel>
@@ -103,7 +79,7 @@
 				<p:outputLabel value="#{mitglied.ort}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Straße" sortBy="#{mitglied.strasse}">
+			<p:column headerText="Straße">
 				<p:outputLabel value="#{mitglied.strasse}">
 				</p:outputLabel>
 			</p:column>
@@ -123,7 +99,7 @@
 				<p:outputLabel value="#{mitglied.email}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Eintrittsdatum" sortBy="#{mitglied.datumEintritt}">
+			<p:column headerText="Eintrittsdatum" visible="false" sortBy="#{mitglied.datumEintritt}">
 				<p:outputLabel value="#{mitglied.datumEintritt}">
 					<f:convertDateTime pattern="dd.MM.yyyy" />
 				</p:outputLabel>
@@ -146,7 +122,10 @@
 			<p:messages>
 				<p:autoUpdate/>
 			</p:messages>
-			<p:commandButton value="Bearbeiten" icon="pi pi-pencil" action="#{mitgliedsListeController.startEdit}" />
+			<p:commandButton value="CSV Download" icon="pi pi-file-export" styleClass="mr-2 mb-2" ajax="false">
+			 	<p:dataExporter type="csv" target="form:table" fileName="TSV-Mitglieder" allRows="true"/>
+		 	</p:commandButton>
+		 	<p:commandButton value="Bearbeiten" icon="pi pi-pencil" action="#{mitgliedsListeController.startEdit}" />
 		</div>
 	</h:form>
 	<footer>

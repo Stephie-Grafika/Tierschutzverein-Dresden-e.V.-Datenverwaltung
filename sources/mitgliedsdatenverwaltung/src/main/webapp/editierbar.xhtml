@@ -26,44 +26,25 @@
 				<li><a href="#">Sponsorunternehmen</a></li>
            </ul>
         </nav>  
-		<br/><hr/><br/><br/>
+		<br/><hr/>
 	</header>
 	<h:outputScript name="locales/locale-de.js" library="primefaces" />
 	<script>
-    //<![CDATA[
-    function dateTemplateFunc(date) {
-        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
-    }
-
-    //]]>
-</script>
+	    //<![CDATA[
+	    function dateTemplateFunc(date) {
+	        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+	    }
+	    //]]>
+	</script>
 	<h:form id="form">
-		<!--<div>
-	      <p:commandButton value="XLSX" styleClass="mr-2 mb-2" >
-	          <p:dataExporter type="xlsxstream" target="mitglieder" fileName="visible" visibleOnly="true"/>
-	      </p:commandButton>
-	
-	      <p:commandButton value="PDF" styleClass="mr-2 mb-2" >
-	          <p:dataExporter type="pdf" target="mitglieder" fileName="visible" visibleOnly="true"/>
-	      </p:commandButton>
-	   </div>-->
-	
-	<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" emptyMessage="Kein Mitglied unter dieser Suche gefunden." scrollable="true">
-			
-			<!--<f:facet name="header">
-	            <div class="flex justify-content-between align-items-center">
-	                Mitgliederliste
-	                <div>
-	                    <p:commandButton id="toggler" type="button" value="Columns" icon="pi pi-align-justify"/>
-	                    <p:columnToggler datasource="mitglieder" trigger="toggler">
-	                        <p:ajax event="toggle" listener="#{mitgliedsListe.onToggle}"/>
-	                    </p:columnToggler>
-	                </div>
-	            </div>
-	        </f:facet>-->
-			
-			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}">
+		<p:growl>
+		    <p:autoUpdate />
+		</p:growl>
+		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" scrollable="true" scrollHeight="500"
+					rows="50"
+					paginator="true" paginatorPosition="bottom"
+					rowsPerPageTemplate="50, 100, 150, 200, {ShowAll|'Alle'}">
+			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}" sortOrder="desc">
 				<p:outputLabel value="#{mitglied.mitgliedsID}" id="mitgliedsIDInput"></p:outputLabel>
 			</p:column>
 			<p:column headerText="Titel" sortBy="#{mitglied.titel}">
@@ -72,7 +53,7 @@
 					<f:validateLength maximum="10"/>
 				</p:inputText>
 			</p:column>
-			<p:column headerText="Name" sortBy="#{mitglied.name}" sortOrder="asc">
+			<p:column headerText="Name" sortBy="#{mitglied.name}">
 				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="true" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben und Bindestrich erlaubt">
 					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="100"/>
