@@ -1,7 +1,7 @@
 package mitgliedsdatenverwaltung;
 
 public enum ZahlArt {
-	UNDEFINIERT("Zahlart"),
+	UNDEFINIERT(""),
 	ABBUCHUNG("Abbuchung"),
 	DAUERAUFTRAG("Dauerauftrag"),
 	PAYPAL("PayPal"),

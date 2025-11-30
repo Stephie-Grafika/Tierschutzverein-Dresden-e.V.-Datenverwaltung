@@ -16,11 +16,13 @@
 <h:body>
 	<!-- Header & Logo -->
 	<header>
-		<img src="assets/img/TSV-Logo.png" id="logo"/>
 		<nav class="navbar">
 			<ul class="nav">
-				<li><a href="mitglieder.xhtml">Mitgliedsverwaltung</a></li>
-				<li><a href="#">Spendenbescheinigungen</a></li>
+				<li><img src="assets/img/TSV-Logo.png" id="logo"/></li>
+				<br class="mobil"/>
+				<li><a href="mitglieder.xhtml">Mitglieder</a></li>
+				<li><a href="editierbar.xhtml"><i class="pi pi-user-edit" style="font-size: 2rem"></i></a></li>
+				<li><a href="#">Spendenbeleg</a></li>
 				<li><a href="#">Sponsorunternehmen</a></li>
            </ul>
         </nav>  
@@ -47,7 +49,7 @@
 	   </div>-->
 	
 	<p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
-		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" emptyMessage="Kein Mitglied unter dieser Suche gefunden." size="small" stickyHeader="true">
+		<p:dataTable id="table" var="mitglied" value="#{mitgliedsListe.liste}" emptyMessage="Kein Mitglied unter dieser Suche gefunden." scrollable="true">
 			
 			<!--<f:facet name="header">
 	            <div class="flex justify-content-between align-items-center">
@@ -75,7 +77,6 @@
 					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.-– ]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
-				<p:message for="nameInput"/>
 			</p:column>
 			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}">
 				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" required="true" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben erlaubt">
@@ -84,7 +85,7 @@
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Geburtsdatum" sortBy="#{mitglied.geburtsdatum}">
-				<p:datePicker id="geburtsdatumInput" value="#{mitglied.geburtsdatum}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Geburtsdatum"/>
+				<p:datePicker value="#{mitglied.geburtsdatum}" id="geburtsdatumInput" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Geburtsdatum"/>
 			</p:column>
 			<p:column headerText="Jahres-Beitrag" sortBy="#{mitglied.jahresBeitrag}">
 				<p:inputText value="#{mitglied.jahresBeitrag}" id="jahresBeitragInput" label="Jahresbeitrag" validatorMessage="Jahresbeitrag: max. 10 Ziffern">
@@ -92,7 +93,7 @@
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Zahlart" sortBy="#{mitglied.zahlArt}">
-				<p:selectOneMenu id="zahlArtInput" value="#{mitglied.zahlArt}" label="Zahlart">
+				<p:selectOneMenu value="#{mitglied.zahlArt}" id="zahlArtInput" label="Zahlart">
                     <f:selectItem itemLabel="Zahlart" itemValue="UNDEFINIERT"/>
                     <f:selectItem itemLabel="Abbuchung" itemValue="ABBUCHUNG"/>
                 	<f:selectItem itemLabel="Dauerauftrag" itemValue="DAUERAUFTRAG"/>
@@ -102,7 +103,7 @@
                	</p:selectOneMenu>
 			</p:column>
 			<p:column headerText="letzte Beitragszahlung" sortBy="#{mitglied.letzteBeitragsZahlung}">
-				<p:inputText value="#{mitglied.letzteBeitragsZahlung}" id="letzteBeitragsZahlungInput" label="letzte Beitragszahlung" validatorMessage="letzte Beitragszahlung: max. 4 Ziifern">				
+				<p:inputText value="#{mitglied.letzteBeitragsZahlung}" id="letzteBeitragsZahlungInput" label="letzte Beitragszahlung" validatorMessage="letzte Beitragszahlung: max. 4 Ziffern">				
 					<f:validateLength maximum="4"/>
 				</p:inputText>
 			</p:column>
@@ -145,10 +146,10 @@
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Eintrittsdatum" sortBy="#{mitglied.datumEintritt}">
-				<p:datePicker id="datumEintrittInput" value="#{mitglied.datumEintritt}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Eintrittsdatum"/>
+				<p:datePicker value="#{mitglied.datumEintritt}" id="datumEintrittInput" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Eintrittsdatum"/>
 			</p:column>
 			<p:column headerText="Status" sortBy="#{mitglied.mitgliedsStatus}">
-				<p:selectOneMenu id="mitgliedsStatusInput" value="#{mitglied.mitgliedsStatus}" label="Mitgliedsstatus">
+				<p:selectOneMenu value="#{mitglied.mitgliedsStatus}" id="mitgliedsStatusInput" label="Mitgliedsstatus">
                     <f:selectItem itemLabel="Status" itemValue="UNBEKANNT"/>
                     <f:selectItem itemLabel="aktiv" itemValue="AKTIV"/>
                 	<f:selectItem itemLabel="keine Zahlung" itemValue="KEINEZAHLUNG"/>
@@ -157,19 +158,24 @@
                	</p:selectOneMenu>
 			</p:column>
 			<p:column headerText="Kommentar" sortBy="#{mitglied.mkommentar}">
-				<p:inputText value="#{mitglied.kommentar}" id="kommentarInput" label="Kommentar" validatorMessage="Kommentar: max. 1000 Zeichen">
+				<p:inputTextarea autoResize="true" value="#{mitglied.kommentar}" id="kommentarInput" label="Kommentar" validatorMessage="Kommentar: max. 1000 Zeichen">
 					<f:validateLength maximum="1000"/>
-				</p:inputText>
+				</p:inputTextarea>
 			</p:column>
 			<p:column headerText="">
            		<p:commandLink value="&#10008; Löschen" action="#{mitgliedsListeController.deleteMitglied(mitglied)}" update="table" />
         	</p:column>
+        	<p:columnGroup type="footer">
+		        <p:row>
+		        	<p:column footerText="Gesamt: #{mitgliedsListe.summeMitglieder} | Aktiv: #{mitgliedsListe.anzahlAktiv} | Keine Zahlung: #{mitgliedsListe.anzahlKeineZahlung} | Gestrichen: #{mitgliedsListe.anzahlGestrichen} | Gekündigt: #{mitgliedsListe.anzahlGekuendigt} | Nicht definiert #{mitgliedsListe.anzahlUnbekannt}" class="font-bold"/>
+		        </p:row>
+		    </p:columnGroup>
 		</p:dataTable>
 		<div class="positionierter-button">
 			<p:messages>
 				<p:autoUpdate/>
 			</p:messages>
-			<p:commandButton value="Speichern" icon="pi pi-check" action="#{mitgliedsListeController.stopEdit}" />
+			<p:commandButton value="Speichern" icon="pi pi-save" action="#{mitgliedsListeController.stopEdit}" />
 			<p:commandButton value="Neues Mitglied" icon="pi pi-plus" action="#{mitgliedsListeController.addMitglied}" update="table" />
 		</div>
 	</h:form>

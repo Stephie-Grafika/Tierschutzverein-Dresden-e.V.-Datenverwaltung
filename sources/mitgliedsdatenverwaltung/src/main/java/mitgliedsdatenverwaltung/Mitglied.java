@@ -63,6 +63,7 @@ public class Mitglied implements Serializable {
 		this.mitgliedsStatus = mitgliedsStatus;
 		this.kommentar = kommentar;
 	}
+	
 
 // Getter und Setter für alle Attribute
 		
@@ -209,4 +210,5 @@ public class Mitglied implements Serializable {
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
 	}
+	
 }

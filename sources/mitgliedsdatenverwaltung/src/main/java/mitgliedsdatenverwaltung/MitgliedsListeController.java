@@ -17,13 +17,17 @@ public class MitgliedsListeController implements Serializable
 	
 	private final MitgliedDAO mitgliedDAO = new MitgliedDAO(); // Injiziert  Klasse MitgliedDAO, um Methoden nutzen zu können
 
-    
+    // Methode zum Bearbeiten der Mitglieder
+	public String startEdit() {
+        return 	"editierbar";
+    }
+	
     // Methode zum Speichern der Mitglieder
     public String stopEdit() {
     	
     	// Speichere die gesamte Liste ohne erneutes Öffnen der EntityManagerFactory
         mitgliedDAO.saveAll(mitgliedsListe.getListe());      
-        return "mitglieder"; // Erfolgreich gespeichert
+        return "mitglieder"; // Erfolgreich gespeichert, wechel zur Vorschauseite
     }
     
     // Methode zum Hinzufügen eines neuen Mtglieds

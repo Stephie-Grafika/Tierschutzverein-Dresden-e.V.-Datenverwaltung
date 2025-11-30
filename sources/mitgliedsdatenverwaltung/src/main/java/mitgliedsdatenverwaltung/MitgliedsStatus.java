@@ -1,7 +1,7 @@
 package mitgliedsdatenverwaltung;
 
 public enum MitgliedsStatus {
-    UNBEKANNT("Status"),
+    UNBEKANNT(""),
     AKTIV("aktiv"),
     KEINEZAHLUNG("keine Zahlung"),
     GESTRICHEN("gestrichen"),

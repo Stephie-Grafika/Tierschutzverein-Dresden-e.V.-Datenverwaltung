@@ -3,6 +3,7 @@ body {
 	font-weight: 400;
     margin: 0 auto; 
     word-break: break-text;
+    hyphens: auto; 
 }
 
 /* Header */
@@ -13,8 +14,14 @@ header {
 }
 
 #logo {
-    max-width: 500px;
+    max-width: 350px;
     margin: 0 auto;
+}
+
+.nav{
+	display: flex;
+	align-items: center; /* Vertikale Zentrierung */
+	justify-content: center;
 }
 
 /* Typo */
@@ -45,13 +52,13 @@ header ul {
 
 header ul li {
     display: inline-block;
-    margin-right: 1em; 
+    margin-right: 1.3em; 
 }
 
 header ul li a {
     color: RGB(var(--tsv_darkblue)); 
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1.53em;
 }
 
 header ul li a:active {
@@ -106,13 +113,25 @@ footer ul li {
 
 /* Tabelle & Input */
 
+.ui-datatable-frozenlayout-left {
+	width: 20%;
+}
+
+.ui-datatable-frozenlayout-right {
+	width: 80%;
+}
+
 table th{
 	background-color: RGB(var(--tsv_blue)) !important;
 	color: white!important;
 }
 
-table td input{
-	width: 100%;
+th, td input, td textarea, td select{
+	width: 150px!important;	
+}
+
+th:first-child{
+	width: 80px!important;	
 }
 
 table td *{
@@ -137,38 +156,18 @@ table td *{
 
 /*Responsive*/
 
+.mobil{
+		display: none;
+	}
+
 @media screen and (max-width: 992px){
 	
-
-	table {
-		width: 90% !important;
-		margin-left: 5% !important; 
-		margin-right: 5% !important; 
+	.nav{
+	display: block;
 	}
 	
-	table td:first-child {
-		background-color: RGB(var(--tsv_lightblue)) !important;
-		font-weight: 700;
-	}
-	
-	table td {
-		display: block !important;  
-		text-align:left !important;
-	}
-	
-	table th {
-		display: block !important;  
-		text-align:left !important;
-	}
-	
-	table th:last-child {
-		margin-bottom: 1em !important;
-	}
-		
-	table td:before, table th:before {
-		content: attr(data-th) !important;
-		display: block !important;
-		text-align:left !important; 
+	.mobil{
+		display: block;
 	}
 	
 	.ui-datatable.ui-datatable-sticky.ui-widget {
