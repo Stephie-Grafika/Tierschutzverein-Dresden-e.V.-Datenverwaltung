@@ -39,72 +39,72 @@
 					<p:columnToggler datasource="form:table" trigger="toggler" />
 				</div>
 			</f:facet>
-			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}" sortOrder="desc">
+			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}" sortOrder="desc" filterBy="#{mitglied.mitgliedsID}" >
 				<p:outputLabel value="#{mitglied.mitgliedsID}"></p:outputLabel>
 			</p:column>
 			<p:column headerText="Titel" visible="false" sortBy="#{mitglied.titel}">
 				<p:outputLabel value="#{mitglied.titel}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Name" sortBy="#{mitglied.name}">
+			<p:column headerText="Name" sortBy="#{mitglied.name}" filterBy="#{mitglied.name}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.name}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}">
+			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}" filterBy="#{mitglied.vorname}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.vorname}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Geburtsdatum" visible="false" sortBy="#{mitglied.geburtsdatum}">
+			<p:column headerText="Geburtsdatum" visible="false" sortBy="#{mitglied.geburtsdatum}" filterBy="#{mitglied.geburtsdatum}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.geburtsdatum}">
 					<f:convertDateTime pattern="dd.MM.yyyy" />
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Jahres-Beitrag" sortBy="#{mitglied.jahresBeitrag}">
+			<p:column headerText="Jahres-Beitrag" sortBy="#{mitglied.jahresBeitrag}" filterBy="#{mitglied.jahresBeitrag}" >
 				<p:outputLabel value="#{mitglied.jahresBeitrag}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Zahlart" sortBy="#{mitglied.zahlArt}">
+			<p:column headerText="Zahlart" sortBy="#{mitglied.zahlArt}" filterBy="#{mitglied.zahlArt}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.zahlArt.getZahlung()}">
                	</p:outputLabel>
 			</p:column>
-			<p:column headerText="letzte Beitragszahlung" sortBy="#{mitglied.letzteBeitragsZahlung}">
+			<p:column headerText="letzte Beitragszahlung" sortBy="#{mitglied.letzteBeitragsZahlung}" filterBy="#{mitglied.letzteBeitragsZahlung}" >
 				<p:outputLabel value="#{mitglied.letzteBeitragsZahlung}">				
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="PLZ" sortBy="#{mitglied.plz}">
+			<p:column headerText="PLZ" sortBy="#{mitglied.plz}" filterBy="#{mitglied.plz}">
 				<p:outputLabel value="#{mitglied.plz}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Ort" sortBy="#{mitglied.ort}">
+			<p:column headerText="Ort" sortBy="#{mitglied.ort}" filterBy="#{mitglied.ort}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.ort}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Straße">
-				<p:outputLabel value="#{mitglied.strasse}">
+			<p:column headerText="Straße" sortBy="#{mitglied.strasse}" filterBy="#{mitglied.strasse}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.strasse}" >
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Haus-Nr." sortBy="#{mitglied.hausNr}">
+			<p:column headerText="Haus-Nr." sortBy="#{mitglied.hausNr}" filterBy="#{mitglied.hausNr}">
 				<p:outputLabel value="#{mitglied.hausNr}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Telefon" sortBy="#{mitglied.telefonNummer}">
+			<p:column headerText="Telefon" sortBy="#{mitglied.telefonNummer}" filterBy="#{mitglied.telefonNummer}">
 				<p:outputLabel value="#{mitglied.telefonNummer}"> 
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Mobil" sortBy="#{mitglied.mobilNummer}">
+			<p:column headerText="Mobil" sortBy="#{mitglied.mobilNummer}" filterBy="#{mitglied.mobilNummer}">
 				<p:outputLabel value="#{mitglied.mobilNummer}" >
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="E-Mail" sortBy="#{mitglied.email}">
+			<p:column headerText="E-Mail" sortBy="#{mitglied.email}" filterBy="#{mitglied.email}">
 				<p:outputLabel value="#{mitglied.email}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Eintrittsdatum" visible="false" sortBy="#{mitglied.datumEintritt}">
+			<p:column headerText="Eintrittsdatum" visible="false" sortBy="#{mitglied.datumEintritt}" filterBy="#{mitglied.datumEintritt}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.datumEintritt}">
 					<f:convertDateTime pattern="dd.MM.yyyy" />
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Status" sortBy="#{mitglied.mitgliedsStatus}">
+			<p:column headerText="Status" sortBy="#{mitglied.mitgliedsStatus}" filterBy="#{mitglied.mitgliedsStatus}" filterMatchMode="contains" >
 				<p:outputLabel value="#{mitglied.mitgliedsStatus.getStatus()}">
 				</p:outputLabel>
 			</p:column>
