@@ -108,7 +108,7 @@
 				<p:outputLabel value="#{mitglied.mitgliedsStatus.getStatus()}">
 				</p:outputLabel>
 			</p:column>
-			<p:column headerText="Kommentar" sortBy="#{mitglied.mkommentar}">
+			<p:column headerText="Kommentar" sortBy="#{mitglied.kommentar}" filterBy="#{mitglied.kommentar}" filterMatchMode="contains">
 				<p:outputLabel value="#{mitglied.kommentar}">
 				</p:outputLabel>
 			</p:column>
