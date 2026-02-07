@@ -6,7 +6,7 @@
          
     <!-- Willkommensseite -->
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>mitglieder.xhtml</welcome-file>
     </welcome-file-list>
          
     <!-- Konfiguration für JSF ohne /faces-Prefix -->

@@ -33,7 +33,7 @@ public class MitgliedsListe implements Serializable {
         return (l == null) ? 0 : l.size();
     }
 
-    // gibt die Anzahl der aktiven Mitglieder weider
+    // gibt die Anzahl der aktiven Mitglieder wieder
     
     public int getAnzahlAktiv() {
         List<Mitglied> l = getListe();
@@ -55,7 +55,7 @@ public class MitgliedsListe implements Serializable {
         return count;
     }
 	
-    // gibt die Anzahl der keine Zahlung Mitglieder weider
+    // gibt die Anzahl der keine Zahlung Mitglieder wieder
     
     public int getAnzahlKeineZahlung() {
         List<Mitglied> l = getListe();
@@ -77,7 +77,7 @@ public class MitgliedsListe implements Serializable {
         return count;
     }
     
-    // gibt die Anzahl der gestrichene Mitglieder weider
+    // gibt die Anzahl der gestrichene Mitglieder wieder
     
     public int getAnzahlGestrichen() {
         List<Mitglied> l = getListe();
@@ -99,7 +99,7 @@ public class MitgliedsListe implements Serializable {
         return count;
     }
 	
-    // gibt die Anzahl der gekündigter Mitglieder weider
+    // gibt die Anzahl der gekündigter Mitglieder wieder
     
     public int getAnzahlGekuendigt() {
         List<Mitglied> l = getListe();
