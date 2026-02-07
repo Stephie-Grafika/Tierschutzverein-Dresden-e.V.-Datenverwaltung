@@ -48,7 +48,7 @@
 				<p:outputLabel value="#{mitglied.mitgliedsID}" id="mitgliedsIDInput"></p:outputLabel>
 			</p:column>
 			<p:column headerText="Titel" sortBy="#{mitglied.titel}">
-				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" validatorMessage="Titel: nur Buchstaben und Bindestrich erlaubt">
+				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" validatorMessage="Titel: nur Buchstaben, Punkt und Bindestrich erlaubt">
 					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="10"/>
 				</p:inputText>
