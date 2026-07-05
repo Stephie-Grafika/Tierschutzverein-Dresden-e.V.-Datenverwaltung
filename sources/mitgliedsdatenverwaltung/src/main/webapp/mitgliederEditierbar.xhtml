@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"> <!-- Präfix für Elemente / Framework: JFS - h & f, Primeface - p -->
+<h:head>
+	<title>TSV Mitgliedsverwaltung</title>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/color.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/fonts.css"/>
+	<link rel="stylesheet" type="text/css" media="screen" href="assets/css/styles.css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="assets/favicon/Tierschutzverein-Dresden-Favicon.png"/>
+	<!-- Indexierung verhindern -->
+	<meta name="robots" content="noindex"/>
+</h:head>
+<h:body>
+	<!-- Header & Logo -->
+	<header>
+		<nav class="navbar">
+			<ul class="nav">
+				<li><img src="assets/img/TSV-Logo.png" id="logo"/></li>
+				<br class="mobil"/>
+				<li><a href="mitgliederEditierbar.xhtml">Mitglieder</a></li>
+           </ul>
+        </nav>  
+		<hr/>
+	</header>
+	<h:outputScript name="locales/locale-de.js" library="primefaces" />
+	<h:form id="form">
+		<div class="table-header-buttons">
+		</div>
+		<p:dataTable id="table" widgetVar="mitgliederTable" var="mitglied" value="#{mitgliedsListe.liste}" scrollable="true" scrollHeight="500">			
+			<f:facet name="header">
+				<div class="flex justify-content-between align-items-center">
+					<p:commandButton id="toggler" type="button" value="Spalten" icon="pi pi-align-justify" title="Spalten ein-/ausblenden" />
+					<p:columnToggler datasource="form:table" trigger="toggler" />
+				</div>
+			</f:facet>
+
+			<p:column headerText="" toggleable="false" exportable="false">
+				<p:commandButton icon="#{mitgliedsListeController.istInBearbeitung(mitglied) ? 'pi pi-check' : 'pi pi-pencil'}"
+								 actionListener="#{mitgliedsListeController.toggleBearbeitung(mitglied)}"
+								 process="@form" update="table" />
+				<p:commandButton icon="pi pi-trash"
+								 actionListener="#{mitgliedsListeController.zumLoeschenVormerken(mitglied)}"
+								 process="@this" update="table" />
+			</p:column>
+
+			<p:column headerText="Mitglieds-Nr." sortBy="#{mitglied.mitgliedsID}" sortOrder="desc" filterBy="#{mitglied.mitgliedsID}" >
+				<p:outputLabel value="#{mitglied.mitgliedsID}"></p:outputLabel>
+			</p:column>
+			<p:column headerText="Titel" visible="false" sortBy="#{mitglied.titel}">
+				<p:outputLabel value="#{mitglied.titel}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.titel}" id="titelInput" label="Titel" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Titel: nur Buchstaben, Punkt und Bindestrich erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
+					<f:validateLength maximum="10"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Name" sortBy="#{mitglied.name}" filterBy="#{mitglied.name}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.name}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" required="" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben und Bindestrich erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}" filterBy="#{mitglied.vorname}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.vorname}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" required="" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben und Bindestricherlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Geburtsdatum" visible="false" sortBy="#{mitglied.geburtsdatum}" filterBy="#{mitglied.geburtsdatum}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.geburtsdatum}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</p:outputLabel>
+				<p:datePicker value="#{mitglied.geburtsdatum}" id="geburtsdatumInput" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Geburtsdatum"/>
+			</p:column>
+			<p:column headerText="Jahres-Beitrag" sortBy="#{mitglied.jahresBeitrag}" filterBy="#{mitglied.jahresBeitrag}" >
+				<p:outputLabel value="#{mitglied.jahresBeitrag}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.jahresBeitrag}" id="jahresBeitragInput" label="Jahresbeitrag" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Jahresbeitrag: max. 10 Ziffern">
+				<f:validateLength maximum="10"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Zahlart" sortBy="#{mitglied.zahlArt}" filterBy="#{mitglied.zahlArt}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.zahlArt.getZahlung()}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:selectOneMenu value="#{mitglied.zahlArt}" id="zahlArtInput" label="Zahlart" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}">
+                    <f:selectItem itemLabel="Zahlart" itemValue="UNDEFINIERT"/>
+                    <f:selectItem itemLabel="Abbuchung" itemValue="ABBUCHUNG"/>
+                	<f:selectItem itemLabel="Dauerauftrag" itemValue="DAUERAUFTRAG"/>
+                	<f:selectItem itemLabel="PayPal" itemValue="PAYPAL"/>
+                	<f:selectItem itemLabel="Überweisung" itemValue="UEBERWEISUNG"/>
+                	<f:selectItem itemLabel="keine Zahlung" itemValue="KEINEZAHLUNG"/>
+               	</p:selectOneMenu>
+			</p:column>
+			<p:column headerText="letzte Beitragszahlung" sortBy="#{mitglied.letzteBeitragsZahlung}" filterBy="#{mitglied.letzteBeitragsZahlung}" >
+				<p:outputLabel value="#{mitglied.letzteBeitragsZahlung}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.letzteBeitragsZahlung}" id="letzteBeitragsZahlungInput" label="letzte Beitragszahlung" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="letzte Beitragszahlung: max. 4 Ziffern">				
+					<f:validateLength maximum="4"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="PLZ" sortBy="#{mitglied.plz}" filterBy="#{mitglied.plz}">
+				<p:outputLabel value="#{mitglied.plz}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.plz}" id="plzInput" label="PLZ" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="PLZ: max. 5 Ziffern">
+					<f:validateLength maximum="5"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Ort" sortBy="#{mitglied.ort}" filterBy="#{mitglied.ort}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.ort}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.ort}" id="ortInput" label="Ort" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Ort: max. 10 Buchstaben">
+					<f:validateLength maximum="35"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Straße" sortBy="#{mitglied.strasse}" filterBy="#{mitglied.strasse}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.strasse}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.strasse}" id="strasseInput" label="Straße" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Straße: max. 50 Zeichen">
+					<f:validateLength maximum="50"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Haus-Nr." sortBy="#{mitglied.hausNr}" filterBy="#{mitglied.hausNr}">
+				<p:outputLabel value="#{mitglied.hausNr}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.hausNr}" id="hausNrInput" label="Haus-Nr." rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Haus-Nr: max. 5 Zeichen">
+					<f:validateLength maximum="5"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Telefon" sortBy="#{mitglied.telefonNummer}" filterBy="#{mitglied.telefonNummer}">
+				<p:outputLabel value="#{mitglied.telefonNummer}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.telefonNummer}" id="telefonNummerInput" label="Telefon" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Telefon: max. 15 Ziffern"> 
+					<f:validateRegex pattern="[1-90 ]+"/>
+					<f:validateLength maximum="15"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Mobil" sortBy="#{mitglied.mobilNummer}" filterBy="#{mitglied.mobilNummer}">
+				<p:outputLabel value="#{mitglied.mobilNummer}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.mobilNummer}" id="mobilNummerInput" label="Mobil" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Mobil: max. 15 Ziifern">
+					<f:validateRegex pattern="[1-90 ]+"/>
+					<f:validateLength maximum="15"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="E-Mail" sortBy="#{mitglied.email}" filterBy="#{mitglied.email}">
+				<p:outputLabel value="#{mitglied.email}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputText value="#{mitglied.email}" id="emailInput" label="E-Mail" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="E-Mail: max. 100 Zeichen und - – _ @ erlaubt">
+					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß1-90._@ \- \–]+"/>
+					<f:validateLength maximum="100"/>
+				</p:inputText>
+			</p:column>
+			<p:column headerText="Eintrittsdatum" visible="false" sortBy="#{mitglied.datumEintritt}" filterBy="#{mitglied.datumEintritt}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.datumEintritt}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}">
+					<f:convertDateTime pattern="dd.MM.yyyy" />
+				</p:outputLabel>
+				<p:datePicker value="#{mitglied.datumEintritt}" id="datumEintrittInput" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" locale="de" monthNavigator="true" yearNavigator="true" pattern="yyyy-MM-dd" label="Eintrittsdatum"/>
+			</p:column>
+			<p:column headerText="Status" sortBy="#{mitglied.mitgliedsStatus}" filterBy="#{mitglied.mitgliedsStatus}" filterMatchMode="contains" >
+				<p:outputLabel value="#{mitglied.mitgliedsStatus.getStatus()}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:selectOneMenu value="#{mitglied.mitgliedsStatus}" id="mitgliedsStatusInput" label="Mitgliedsstatus" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}">
+                    <f:selectItem itemLabel="Status" itemValue="UNBEKANNT"/>
+                    <f:selectItem itemLabel="aktiv" itemValue="AKTIV"/>
+                	<f:selectItem itemLabel="keine Zahlung" itemValue="KEINEZAHLUNG"/>
+                	<f:selectItem itemLabel="gestrichen" itemValue="GESTRICHEN"/>
+                	<f:selectItem itemLabel="gekündigt" itemValue="GEKUENDIGT"/>
+               	</p:selectOneMenu>
+			</p:column>
+			<p:column headerText="Kommentar" sortBy="#{mitglied.kommentar}" filterBy="#{mitglied.kommentar}" filterMatchMode="contains">
+				<p:outputLabel value="#{mitglied.kommentar}" rendered="#{!mitgliedsListeController.istInBearbeitung(mitglied)}"/>
+				<p:inputTextarea autoResize="true" value="#{mitglied.kommentar}" id="kommentarInput" label="Kommentar" rendered="#{mitgliedsListeController.istInBearbeitung(mitglied)}" validatorMessage="Kommentar: max. 1000 Zeichen">
+					<f:validateLength maximum="1000"/>
+				</p:inputTextarea>
+			</p:column>
+			<p:columnGroup type="footer">
+		        <p:row>
+		        	<p:column footerText="Gesamt: #{mitgliedsListe.summeMitglieder} | Aktiv: #{mitgliedsListe.anzahlAktiv} | Keine Zahlung: #{mitgliedsListe.anzahlKeineZahlung} | Gestrichen: #{mitgliedsListe.anzahlGestrichen} | Gekündigt: #{mitgliedsListe.anzahlGekuendigt} | Nicht definiert #{mitgliedsListe.anzahlUnbekannt}" class="font-bold"/>
+		        </p:row>
+		    </p:columnGroup>
+		</p:dataTable>
+		<div class="positionierter-button">
+			<p:messages>
+				<p:autoUpdate/>
+			</p:messages>
+			<p:commandButton value="Speichern" icon="pi pi-save" action="#{mitgliedsListeController.speichern}" process="@form" update="table" />
+			<p:commandButton value="Neues Mitglied" icon="pi pi-plus" action="#{mitgliedsListeController.addMitglied}" update="table" />
+			<p:commandButton value="CSV Download" icon="pi pi-file-export" styleClass="mr-2 mb-2" ajax="false">
+			 	<p:dataExporter type="csv" target="form:table" fileName="TSV-Mitglieder" allRows="true"/>
+		 	</p:commandButton>
+	 	</div>
+	</h:form>
+	<footer>
+	<br/><br/><hr/><br/>
+		<ul>
+          	<li>© Stephanie Ott 2026</li>
+		</ul>
+	</footer>
+</h:body>
+</html>

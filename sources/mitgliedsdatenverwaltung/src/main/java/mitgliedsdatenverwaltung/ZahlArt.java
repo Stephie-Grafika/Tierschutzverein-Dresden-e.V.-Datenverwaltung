@@ -9,7 +9,7 @@ public enum ZahlArt {
 	KEINEZAHLUNG("keine Zahlung");
 
     private String zahlung;
-    
+
     ZahlArt(String zahlung) {
         this.zahlung = zahlung;
     }

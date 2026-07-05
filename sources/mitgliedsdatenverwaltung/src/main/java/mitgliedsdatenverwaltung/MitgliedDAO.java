@@ -1,18 +1,22 @@
 package mitgliedsdatenverwaltung;
 
 import java.util.List;
-import jakarta.persistence.*;
-import mitgliedsdatenverwaltung.Mitglied;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 
 // Datenbankzugriff
 public class MitgliedDAO {
-	
+
 	 // Verwende eine einzige EntityManagerFactory während der gesamten Laufzeit
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("mitgliedPersistenceUnit");
-    
+
     // Methode zum Laden aller Mitglieder aus der Datenbank
     public List<Mitglied> findAll() {
-        EntityManager entityManager = emf.createEntityManager(); // PA-Komponente für Zugriff auf Datenbank 
+        EntityManager entityManager = emf.createEntityManager(); // PA-Komponente für Zugriff auf Datenbank
         Query abfrage = entityManager.createQuery("select e from Mitglied e"); //JPQL-Abfrage (Java Persistence Query Language)
         List<Mitglied> alleMitglieder = abfrage.getResultList(); //Speichern der Abfrageergebnisse in eine Liste
         entityManager.close();
@@ -29,7 +33,7 @@ public class MitgliedDAO {
             for (Mitglied mitglied : mitglieder) {
             	entityManager.merge(mitglied);  // Neu speichern oder Aktualisieren jedes Mitglied-Objekts (ID-Abhängig)
             }
-            transaction.commit(); 
+            transaction.commit();
         } finally {
         	entityManager.close();  // EntityManager schließen, auch wenn eine Exception auftritt, um Ressourcen freizugeben
         }
@@ -43,7 +47,7 @@ public class MitgliedDAO {
         neuesMitglied.setMitgliedsID(maxId + 1); // ID definieren als höchste ID + 1
         mitglieder.add(neuesMitglied); // Neues Objekt der Liste hinzufügen
     }
-    
+
     // Methode zum Löschen von Mitglied
     public void delete(Mitglied mitglied) {
         EntityManager entityManager = emf.createEntityManager();
@@ -67,12 +71,12 @@ public class MitgliedDAO {
             entityManager.close();
         }
     }
-    
+
     // Methode zum Schließen der EntityManagerFactory (optional)
     public static void close() {
         if (emf.isOpen()) {
             emf.close();
         }
-    }    
+    }
 }
 

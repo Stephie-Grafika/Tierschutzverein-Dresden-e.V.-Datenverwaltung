@@ -8,7 +8,7 @@ public enum MitgliedsStatus {
     GEKUENDIGT("gekündigt");
 
     private String status;
-    
+
     MitgliedsStatus(String status) {
         this.status = status;
     }
