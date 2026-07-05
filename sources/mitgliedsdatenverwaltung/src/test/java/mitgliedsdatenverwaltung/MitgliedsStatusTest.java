@@ -1,28 +1,23 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2870\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;}{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}\paperw11900\paperh16840\margl1440\margr1440\vieww12180\viewh16540\viewkind0\deftab720\pard\pardeftab720\partightenfactor0
+package mitgliedsdatenverwaltung;
 
-\f0\fs24\cf0\expnd0\expndtw0\kerning0\outl0\strokewidth0\strokec2 package mitgliedsdatenverwaltung;\\
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;\\
-import org.junit.jupiter.api.Test;\\
+import org.junit.jupiter.api.Test;
 
-class MitgliedsStatusTest\{\
-\
-	@Test\
+class MitgliedsStatusTest {
 
-	void aktivHatKorrektenAnzeigetext() \{\
-		assertEquals("aktiv", MitgliedsStatus.AKTIV.getStatus());\
-	\}\
-\
-	@Test\
+	@Test
+	void aktivHatKorrektenAnzeigetext() {
+		assertEquals("aktiv", MitgliedsStatus.AKTIV.getStatus());
+	}
 
-	void gekuendigtHatKorrektenAnzeigetext() \{\
-		assertEquals("gek\'fcndigt", MitgliedsStatus.GEKUENDIGT.getStatus());\
-	\}\
-\
-	@Test\
+	@Test
+	void gekuendigtHatKorrektenAnzeigetext() {
+		assertEquals("gekündigt", MitgliedsStatus.GEKUENDIGT.getStatus());
+	}
 
-	void unbekanntHatLeerenAnzeigetext() \{\
-		assertEquals("", MitgliedsStatus.UNBEKANNT.getStatus());\
-	\}\
-\}
+	@Test
+	void unbekanntHatLeerenAnzeigetext() {
+		assertEquals("", MitgliedsStatus.UNBEKANNT.getStatus());
+	}
 }
