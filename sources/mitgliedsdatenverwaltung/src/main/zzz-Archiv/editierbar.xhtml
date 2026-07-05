@@ -54,13 +54,13 @@
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Name" sortBy="#{mitglied.name}">
-				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben und Bindestrich erlaubt">
+				<p:inputText value="#{mitglied.name}" id="nameInput" label="Name" required="true" requiredMessage="Name ist erforderlich." validatorMessage="Name: nur Buchstaben und Bindestrich erlaubt">
 					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
 			</p:column>
 			<p:column headerText="Vorname" sortBy="#{mitglied.vorname}" >
-				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben und Bindestricherlaubt">
+				<p:inputText value="#{mitglied.vorname}" id="vornameInput" label="Vorname" required="true" requiredMessage="Vorname ist erforderlich." validatorMessage="Vorame: nur Buchstaben und Bindestricherlaubt">
 					<f:validateRegex pattern="[a-zA-ZäöüÄÖÜß.\- ]+"/>
 					<f:validateLength maximum="100"/>
 				</p:inputText>
@@ -138,7 +138,7 @@
                 	<f:selectItem itemLabel="gekündigt" itemValue="GEKUENDIGT"/>
                	</p:selectOneMenu>
 			</p:column>
-			<p:column headerText="Kommentar" sortBy="#{mitglied.mkommentar}">
+			<p:column headerText="Kommentar" sortBy="#{mitglied.kommentar}">
 				<p:inputTextarea autoResize="true" value="#{mitglied.kommentar}" id="kommentarInput" label="Kommentar" validatorMessage="Kommentar: max. 1000 Zeichen">
 					<f:validateLength maximum="1000"/>
 				</p:inputTextarea>

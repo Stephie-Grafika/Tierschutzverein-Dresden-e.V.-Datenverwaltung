@@ -10,7 +10,7 @@ body {
 
 header {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 25px;
 }
 
 #logo {
@@ -139,8 +139,8 @@ th:first-child, td:first-child{
 	width: 80px!important;	
 }
 
-table td *{
-	color: RGB(var(--tsv_darkgrey)) !important; 		
+table td *:has(:not(span.pi)){
+	color: RGB(var(--tsv_darkgrey)); 		
 }
 
 .ui-datatable.ui-datatable-sticky.ui-widget {

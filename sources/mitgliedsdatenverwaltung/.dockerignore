@@ -1,0 +1,14 @@
+target/
+.metadata/
+.settings/
+.classpath
+.project
+.DS_Store
+*.log
+*.swp
+*.swo
+.git/
+.gitignore
+README.md
+node_modules/
+zzz-Archiv/

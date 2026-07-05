@@ -1,13 +1,18 @@
 package mitgliedsdatenverwaltung;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
-
 import java.util.Date;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Mitglied implements Serializable {
-	
+
 	@Id
 	private int mitgliedsID;
     private String titel;
@@ -37,11 +42,11 @@ public class Mitglied implements Serializable {
 	public Mitglied() {
 		// Standard-Konstruktor für JPA
 	}
-	
+
 	public MitgliedsStatus mitgliedsStatus() {
 		return mitgliedsStatus;
 	}
-	
+
 	public Mitglied(int mitgliedsID, String titel, String name, String vorname, Date geburtsdatum, String jahresBeitrag, ZahlArt zahlArt, int letzteBeitragsZahlung, String plz, String ort, String strasse, String hausNr, String telefonNummer, String mobilNummer, String email, Date datumEintritt, MitgliedsStatus mitgliedsStatus, String kommentar) {
 		super(); // Ruft den Konstruktor der Elternklasse auf
 		this.mitgliedsID = mitgliedsID;
@@ -62,10 +67,10 @@ public class Mitglied implements Serializable {
 		this.mitgliedsStatus = mitgliedsStatus;
 		this.kommentar = kommentar;
 	}
-	
+
 
 // Getter und Setter für alle Attribute
-		
+
 	public int getMitgliedsID(){
     	return mitgliedsID;
     }
@@ -73,7 +78,7 @@ public class Mitglied implements Serializable {
     public void setMitgliedsID(int mitgliedsID){
     	this.mitgliedsID = mitgliedsID;
     }
- 
+
 	public String getTitel() {
 		return titel;
 	}
@@ -209,5 +214,5 @@ public class Mitglied implements Serializable {
 	public void setKommentar(String kommentar) {
 		this.kommentar = kommentar;
 	}
-	
+
 }
