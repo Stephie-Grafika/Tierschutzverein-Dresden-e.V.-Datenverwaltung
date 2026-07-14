@@ -20,4 +20,5 @@ jobs:
           cache: maven
 
       - name: Build und Test mit Maven
+        working-directory: sources/mitgliedsdatenverwaltung
         run: mvn -B verify --file pom.xml
