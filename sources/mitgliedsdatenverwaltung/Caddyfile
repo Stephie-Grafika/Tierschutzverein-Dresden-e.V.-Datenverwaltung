@@ -1,0 +1,13 @@
+# Lokale Testversion der Caddyfile fuer den PoC (Kapitel 6.3)
+# Nutzt localhost statt einer echten Domain, Caddy erstellt dafuer
+# automatisch ein selbstsigniertes Zertifikat (kein Let's-Encrypt-Zugriff noetig).
+# Fuer den echten Produktivbetrieb weiterhin die urspruengliche Caddyfile
+# mit echter Domain verwenden.
+
+localhost {
+	basic_auth /* {
+		vorstand $2a$14$nEiLHmufBFiIMvWLJKRJauWDXjXg4urjv3nhMpoY/Xer9fZvhP2vO
+	}
+
+	reverse_proxy app:8080
+}

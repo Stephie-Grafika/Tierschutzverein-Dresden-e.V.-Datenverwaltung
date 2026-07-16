@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: tierschutzverein-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: tsv_verwaltung_db
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data_v2:/var/lib/mysql
+
+  app:
+    # Lokal gebautes Image aus Schritt 4 (nicht die GHCR-Version aus der Pipeline)
+    image: tierschutzverein-app:latest
+    container_name: tierschutzverein-app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: tsv_verwaltung_db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+  caddy:
+    image: caddy:2
+    container_name: tierschutzverein-caddy
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  db_data_v2:
+  caddy_data:
+  caddy_config:
